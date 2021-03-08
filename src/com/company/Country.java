@@ -4,7 +4,7 @@ public enum Country {
 
     Russia("Россия", true),
     USA("США", true),
-    Germany("Германия", true),
+    Germany("Германия", false),
     Canada("Канада", true);
     private final String ruName;
     private final boolean isOpen;
@@ -25,7 +25,7 @@ public enum Country {
     public static Country getByRuName(final String input) throws NoSuchCountryException {
         Country[] countries = Country.values();
         for (Country country : countries) {
-            if (country.getRuName().equals(input) && country.getIsOpen()) {
+            if (country.getRuName().equals(input)) {
                 return country;
             }
         }
@@ -40,7 +40,8 @@ public enum Country {
 
 class NoSuchCountryException extends Exception {
     NoSuchCountryException(final String input) {
-        System.out.println("Страны '" + input + "' не существует.");
+        super(input);
     }
+
 }
 

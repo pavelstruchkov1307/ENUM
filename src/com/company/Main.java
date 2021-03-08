@@ -5,7 +5,7 @@ import java.util.Scanner;
 public class Main {
     public static void main(final String[] args) {
         String input;
-        Country ruCountry;
+
         Country[] countries = Country.values();
         for (Country country : countries) {
             System.out.println(country);
@@ -14,7 +14,12 @@ public class Main {
         System.out.print("Введите название страны: ");
         input = scan.nextLine();
         try {
-            System.out.println("Страна [" + Country.valueOf(input) + "] открыта для посещения.");
+            Country currCountry = Country.valueOf(input);
+            if (currCountry.getIsOpen()) {
+                System.out.println("Страна [" + currCountry + "] открыта для посещения.");
+            } else {
+                System.out.println("Страна [" + currCountry + "] закрыта для посещения.");
+            }
             return;
         } catch (NullPointerException e) {
             System.out.println("Неверное использование пустой ссылки");
@@ -23,12 +28,17 @@ public class Main {
             System.out.println("Наименование страны на английском введено некорректно, проверяем русское название...");
         }
         try {
-            ruCountry = Country.getByRuName(input);
+            Country ruCountry = Country.getByRuName(input);
+            if (ruCountry.getIsOpen()) {
+                System.out.println("Страна [" + ruCountry + "] открыта для посещения.");
+            } else {
+                System.out.println("Страна [" + ruCountry + "] закрыта для посещения.");
+            }
+
         } catch (NoSuchCountryException e) {
-            System.out.println();
-            return;
+            System.out.println("Страны '" + e.getMessage() + "' не существует.");
         }
-        System.out.println("Страна [" + ruCountry + "] открыта для посещения.");
+
     }
 
 
